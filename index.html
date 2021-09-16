@@ -1,22 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@700&display=swap"
+		rel="stylesheet">
 	<link rel="stylesheet" href="./css/main.min.css">
 	<title>Barbershop</title>
 </head>
 
 <body>
 	<header>
-
+		<div class="container header-section">
+			<a href="./index.html" class="logo header-logo">
+				<svg class="logo__icon" width="66" height="55">
+					<use href="./images/icons.svg#icon-logo"></use>
+				</svg></a>
+			<nav class="nav">
+				<ul class="nav__list list">
+					<li class="nav__item">
+						<a href="" class="link nav__link">О нас</a>
+					</li>
+					<li class="nav__item">
+						<a href="" class="link nav__link">Услуги и цены</a>
+					</li>
+					<li class="nav__item">
+						<a href="" class="link nav__link">Мастера</a>
+					</li>
+					<li class="nav__item">
+						<a href="" class="link nav__link">Контакты</a>
+					</li>
+				</ul>
+			</nav>
+			<a href="tel:+380441111111" class="header__tel">+38 044 111 11 11</a>
+			<button type="button" class="btn">онлайн-запись</button>
+		</div>
 	</header>
 	<main>
-
+		<!-- Hero section -->
+		<section class="hero-section container">
+			<p class="pre-text">A hair salon for men in Kyiv</p>
+			<h1 class="main-title">BarberShop</h1>
+			<p>Мы эксперты в модных мужских стрижках.
+				Работаем быстро, осторожно и со вкусом.</p>
+			<a href="" class="hero-section__link link">Instagram</a>
+			<a href="" class="hero-section__link link">Youtube</a>
+		</section>
+		<!-- About section -->
+		<section class="about-section container">
+			<img src="./images/about1.jpg" alt="бреет бороду" width="270" height="445" class="about-section__img">
+			<img src="./images/about2.jpg" alt="бреет голову" width="270" height="445" class="about-section__img">
+			<p class="pre-text">О нас</p>
+			<h2 class="secondary-title">Лучший Барбершоп твоего города</h2>
+			<p class="after-text">Если ты хочешь добавить в свой образ больше уверенности – тебе точно к нам.</p>
+			<p class="about-section__text">Мы команда, которая никогда не останавливается на достигнутом
+				и жаждет перемен. И когда ты попадешь в руки нашего мастера,
+				то уже никогда не сможешь быть прежним. Мы команда, которая всегда с клиентами
+				"на одной волне". Поэтому, мы всегда
+				готовы усовершенствовать каждого, кто к нам приходит!
+			</p>
+			<button type="button" class="btn">онлайн-запись</button>
+		</section>
+		<!-- Prices section -->
+		<section class="prices-section container">
+			<p class="pre-text">Проведи время в компании лучших мастеров</p>
+			<h2 class="secondary-title">Услуги и цены</h2>
+			<div class="left-prices">
+				<p>Мужская стрижка <span>от 300 грн.</span></p>
+				<p>Стрижка бороды<span>от 200 грн.</span></p>
+				<p>Стрижка усов<span>от 200 грн.</span></p>
+				<p>Бритье опасной бритвой<span>от 200 грн.</span></p>
+			</div>
+			<div class="right-prices">
+				<p>Cтрижка у стажера <span>от 50 грн.</span> </p>
+				<p>Стрижка под насадку <span>от 200 грн.</span> </p>
+				<p>Стрижка под насадку <span>от 300 грн.</span> </p>
+				<p>Камуфлирование седины <span>от 200 грн.</span> </p>
+			</div>
+			<button type="button" class="btn">онлайн-запись</button>
+		</section>
+		<!-- Reason section -->
+		<section class="reason container">
+			<p class="pre-text">старая традиционная школа</p>
+			<h2 class="secondary-title">Почему приходят именно к нам?</h2>
+			<p class="after-text">О нас говорят только хорошее. Но лучше 1 раз увидеть и прочувствовать, чем 10 раз прочитать.
+			</p>
+			<ul>
+				<li>
+					<span>600</span>
+					<p>Довольных клиентов в день</p>
+				</li>
+				<li>
+					<span>20</span>
+					<p>Лучших мастеров Киева</p>
+				</li>
+				<li>
+					<span>50</span>
+					<p>Наград за отличный сервис</p>
+				</li>
+				<li>
+					<span>100</span>
+					<p>Подарков постоянным клиентам</p>
+				</li>
+			</ul>
+		</section>
+		<!-- Masters section -->
+		<section class="masters container">
+			<p class="pre-text">для настоящих ценителей атмосферы</p>
+			<h2 class="secondary-title">Наши мастера</h2>
+			<ul class="masters__list">
+				<li class="masters__item">
+					<img src="" alt="" width="370" height="346" class="masters__img">
+					<h3 class="masters__name">John Smith</h3>
+					<p class="masters__text">Extreme Barber</p>
+					<ul class="masters__socials-list socials-list">
+						<li class="socials-list__item">
+							<a href="" class="socials-list__link">
+								<svg width="" height="" class="socials-list__icon">
+									<use href=""></use>
+								</svg>
+							</a>
+						</li>
+						<li class="socials-list__item">
+							<a href="" class="socials-list__link">
+								<svg width="" height="" class="socials-list__icon">
+									<use href=""></use>
+								</svg>
+							</a>
+						</li>
+						<li class="socials-list__item">
+							<a href="" class="socials-list__link">
+								<svg width="" height="" class="socials-list__icon">
+									<use href=""></use>
+								</svg>
+							</a>
+						</li>
+						<li class="socials-list__item">
+							<a href="" class="socials-list__link">
+								<svg width="" height="" class="socials-list__icon">
+									<use href=""></use>
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<!-- Portfolio -->
+		<section class="portfolio container">
+			<p class="pre-text">На латинском языке “барба” означает “борода”</p>
+			<h2 class="secondary-title">Портфолио</h2>
+			<ul class="portfolio__list">
+				<li class="portfolio__item">
+					<img scr="" alt="" class="portfolio__img">
+				</li>
+				<li class="portfolio__item">
+					<img scr="" alt="" class="portfolio__img">
+				</li>
+				<li class="portfolio__item">
+					<img scr="" alt="" class="portfolio__img">
+				</li>
+				<li class="portfolio__item">
+					<img scr="" alt="" class="portfolio__img">
+				</li>
+			</ul>
+		</section>
+		<!-- Contacts and online appointment section  -->
+		<section class="contacts container">
+			<div class="online">
+				<h2 class="secondary-title">Онлайн-запись</h2>
+				<form class="online-form">
+					<label>Имя
+						<input type="text" class="online-form__name"></input>
+					</label>
+					<label>Телефон
+						<input type="tel" class="online-form__tel"></iput>
+					</label>
+					<label>Сообщение
+						<textarea class="online-form__textarea"></textarea>
+					</label>
+					<button type="button" class="btn">онлайн-запись</button>
+				</form>
+			</div>
+			<div class="contacts">
+				<h2 class="secondary-title">Контакты</h2>
+				<address>
+					ул. Васильковая, 7А
+					Киев, 08132
+				</address>
+				<p>+38 044 111 11 11</p>
+				<p>barbershop@email.com</p>
+				<p class="pre-text">время работы</p>
+				<p>Ежедневно с 9:00 до 22:00</p>
+			</div>
+		</section>
 	</main>
-	<footer>
+	<footer class="footer container">
+		<p>Copyright 2020</p>
+		<a href="" class="hero-section__link link">Instagram</a>
+		<a href="" class="hero-section__link link">Youtube</a>
+
+
 
 	</footer>
 </body>
