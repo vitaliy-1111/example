@@ -1,1 +1,1 @@
-# example
+# webpack-basics
