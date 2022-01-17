@@ -1,9 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { SourceMapDevToolPlugin } = require("webpack");
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/index.js',
   output: {
     filename: 'boundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -32,18 +33,25 @@ module.exports = {
           "sass-loader",
         ],
       },
+        {
+    test: /\.js$/,
+    enforce: 'pre',
+    use: ['source-map-loader'],
+  },
        
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       // title: "Webpack Basics",
-      template: "src/index.html"
+      template: "src/todo.html"
     }),
     new MiniCssExtractPlugin({
 
       },
     ),
+     new SourceMapDevToolPlugin({
+  }),
   ],
 
   // devServer: {
