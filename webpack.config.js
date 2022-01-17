@@ -24,7 +24,7 @@ module.exports = {
         test: /\.scss$/i,
         use: [
           // Creates `style` nodes from JS strings
-          "style-loader",
+          // "style-loader",
           MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
           "css-loader",
