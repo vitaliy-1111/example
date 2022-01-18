@@ -1,6 +1,25 @@
+
 import getRefs from './get-refs.js';
 import itemTemplate from '../template/template.js';
 import { v4 as uuidv4 } from 'uuid';
+import toastr from "toastr";
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "3000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 
 const refs = getRefs();
 
@@ -9,17 +28,21 @@ refs.listGroup.addEventListener('click', handleClick);
 refs.printBtn.addEventListener('click', onPrintBtn);
 refs.form.addEventListener('submit', addTodo);
 
-
+function onLoad() {
+  loadData();
+  refs.form.addEventListener('input', onFormInput);
+refs.listGroup.addEventListener('click', handleClick);
+refs.printBtn.addEventListener('click', onPrintBtn);
+  refs.form.addEventListener('submit', addTodo);
+  renderList();
+}
 
 function onFormInput(e) {
   console.log(e.target.value)
 }
 
 let todos = [
-  { id: '1', label: 'text', checked: true },
-  { id: '2', label: 'text', checked: false },
-  { id: '3', label: 'text', checked: false },
-  { id: '4', label: 'text', checked: true }, 
+
 ]
 function addTodo(e) {
   e.preventDefault();
@@ -30,6 +53,7 @@ function addTodo(e) {
      id:uuidv4(), label: value, checked: false 
   }
   todos.push(newTodo);
+  toastr.success('Todo is successfuly created');
   refs.form.reset();
   renderList();
 }
@@ -40,8 +64,9 @@ function renderList() {
   const items = todos.map((todo) => itemTemplate(todo));
   refs.listGroup.innerHTML = "";
   refs.listGroup.insertAdjacentHTML('beforeend', items.join(''));
+  saveData();
 }
-renderList();
+
 
 function handleClick(e) {
   console.log(e.target.closest('li').dataset);
@@ -63,6 +88,7 @@ function handleClick(e) {
 function deleteItem(id) {
   console.log("delete", id);
   todos = todos.filter(todo => todo.id !== id);
+   toastr.warning('Todo is successfuly deleted');
 }
 function toggleItem(id) {
   todos = todos.map((todo) => 
@@ -75,3 +101,14 @@ function toggleItem(id) {
   
 }
   
+function saveData() {
+  localStorage.setItem('todos', JSON.stringify(todos));
+}
+function loadData() {
+  try {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  } catch (error) {
+    toastr.error('Error loading todo list');
+  }
+}
+onLoad();
