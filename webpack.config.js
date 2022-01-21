@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { SourceMapDevToolPlugin } = require("webpack");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const { SourceMapDevToolPlugin } = require("webpack");
 
 module.exports = {
   entry: './src/index.js',
@@ -26,7 +26,7 @@ module.exports = {
         use: [
           // Creates `style` nodes from JS strings
           // "style-loader",
-          MiniCssExtractPlugin.loader,
+          // MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
           "css-loader",
           // Compiles Sass to CSS
@@ -34,9 +34,9 @@ module.exports = {
         ],
       },
         {
-    test: /\.js$/,
-    enforce: 'pre',
-    use: ['source-map-loader'],
+    // test: /\.js$/,
+    // enforce: 'pre',
+    // use: ['source-map-loader'],
   },
        
     ],
@@ -44,14 +44,14 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // title: "Webpack Basics",
-      template: "src/todo.html"
+      template: "src/clock-widget.html"
     }),
-    new MiniCssExtractPlugin({
+    // new MiniCssExtractPlugin({
 
-      },
-    ),
-     new SourceMapDevToolPlugin({
-  }),
+    //   },
+    // ),
+  //    new SourceMapDevToolPlugin({
+  // }),
   ],
 
   // devServer: {
