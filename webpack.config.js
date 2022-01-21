@@ -44,7 +44,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // title: "Webpack Basics",
-      template: "src/clock-widget.html"
+      template: "src/clock.html"
     }),
     // new MiniCssExtractPlugin({
 
