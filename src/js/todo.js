@@ -4,7 +4,8 @@ import itemTemplate from '../template/template.js';
 import { v4 as uuidv4 } from 'uuid';
 import toastr from "toastr";
 import { deleteModal } from './get-refs.js';
-import { loadData, saveData } from './data-storage.js';
+import { loadingModal } from './get-refs.js';
+import { fetchTodos, saveData } from './data-storage.js';
 // import * as basicLightbox from 'basiclightbox';
 
 toastr.options = {
@@ -32,18 +33,31 @@ let currentId;
 function handleModalCancel() {
   deleteModal.close();
 }
+
 function handleModalDelete() {
   todos = todos.filter((todo) => todo.id !== currentId);
-  toastr.warning('todo is successfully deleted');
+  // toastr.warning('todo is successfully deleted');
   deleteModal.close();
-  renderList();
+
+  loadingModal.show();
+  saveData('todos', todos)
+    .then(() => {
+      toastr.warning('todo is successfully deleted');
+    })
+    .finally(() => {
+      renderList();
+      loadingModal.close();
+    });
+  
 }
+
 function renderList() {
   const items = todos.map((todo) => itemTemplate(todo));
   refs.listGroup.innerHTML = "";
   refs.listGroup.insertAdjacentHTML('beforeend', items.join(''));
-  saveData('todos', todos);
+  // saveData('todos', todos);
 }
+
 function deleteItem(id) {
   console.log("delete", id);
   // todos = todos.filter(todo => todo.id !== id);
@@ -54,6 +68,7 @@ function deleteItem(id) {
   refs.modalText.textContent = label;
   deleteModal.show();
 }
+
 function toggleItem(id) {
   todos = todos.map((todo) => 
     todo.id === id
@@ -62,6 +77,11 @@ function toggleItem(id) {
         checked: !todo.checked,
       }
       : todo);
+   loadingModal.show();
+  saveData('todos', todos).finally(() => {
+    renderList();
+    loadingModal.close();
+  });
   
 }
 function handleClick(e) {
@@ -81,14 +101,13 @@ function handleClick(e) {
   }
  renderList();
 }
+
 function onPrintBtn(e) {
   console.table(todos);
 }
-function addTodo(e) {
-  e.preventDefault();
-  const { value } = e.target.elements.text;
-  if (!value) return;
 
+function addTodo(value) {
+ 
   const newTodo = {
      id:uuidv4(), label: value, checked: false 
   }
@@ -96,21 +115,45 @@ function addTodo(e) {
   toastr.success('Todo is successfuly created');
   refs.form.reset();
   renderList();
+  return Promise.resolve();
 }
 
+function handleSubmit(e) {
+   e.preventDefault();
+  const { value } = e.target.elements.text;
+  if (!value) return;
+
+  addTodo(value)
+    .then(() => refs.form.reset())
+    .then(render);
+}
 // refs.form.addEventListener('input', onFormInput);
 // refs.listGroup.addEventListener('click', handleClick);
 // refs.printBtn.addEventListener('click', onPrintBtn);
 // refs.form.addEventListener('submit', addTodo);
 
-function onLoad() {
-  todos = loadData('todos');
-  // refs.form.addEventListener('input', onFormInput);
- refs.listGroup.addEventListener('click', handleClick);
+function addEventListeners() {
+  refs.listGroup.addEventListener('click', handleClick);
   refs.printBtn.addEventListener('click', onPrintBtn);
-  refs.form.addEventListener('submit', addTodo);
-   refs.modalCancelButton.addEventListener('click', handleModalCancel);
+  refs.form.addEventListener('submit', handleSubmit);
+  refs.modalCancelButton.addEventListener('click', handleModalCancel);
   refs.modalDeleteButton.addEventListener('click', handleModalDelete);
-  renderList();
+}
+
+function onLoad() {
+ 
+  loadingModal.show();
+  fetchTodos('todos')
+    .then((data) => {
+      todos = data;
+      renderList();
+    })
+    .catch((errorMessage) => {
+      toastr.error(errorMessage);
+    })
+    .finally(() => {
+      addEventListeners();
+      loadingModal.close();
+    });
 }
 onLoad();

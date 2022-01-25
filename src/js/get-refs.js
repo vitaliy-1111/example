@@ -7,6 +7,14 @@ export const deleteModal = basicLightbox.create(`
   <button class="btn btn-danger">Delete</button>
 </div>
 `);
+export const loadingModal = basicLightbox.create(
+  `
+<div class="loading-modal">
+  <p>please wait...</p>
+</div>
+`,
+  { closable: false },
+);
 export function getRefs() {
   return {
     form: document.querySelector('form'),
