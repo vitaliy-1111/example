@@ -1,5 +1,5 @@
 export function fetchTodos(key) {
-  return fetch("http://localhost:3000/todos").then(response => response.json());
+  return fetch("http://localhost:4040/todos").then(response => response.json());
   // const delay = ~~(Math.random() * 1000);
   // console.log('load delay:', delay);
 
@@ -15,7 +15,7 @@ export function fetchTodos(key) {
 }
 
 export function saveData(key, payload) {
-  return fetch('http://localhost:3000/todos', {
+  return fetch('http://localhost:4040/todos', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
