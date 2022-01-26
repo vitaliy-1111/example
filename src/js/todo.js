@@ -109,13 +109,12 @@ function onPrintBtn(e) {
 function addTodo(value) {
  
   const newTodo = {
-     id:uuidv4(), label: value, checked: false 
+    label: value, checked: false 
   }
-  todos.push(newTodo);
-  toastr.success('Todo is successfuly created');
-  refs.form.reset();
-  renderList();
-  return Promise.resolve();
+   toastr.success('todo is successfully created');
+  return saveData('todos', newTodo).then((data) => {
+    todos.push(data);
+  });
 }
 
 function handleSubmit(e) {
@@ -125,7 +124,7 @@ function handleSubmit(e) {
 
   addTodo(value)
     .then(() => refs.form.reset())
-    .then(render);
+    .then(renderList);
 }
 // refs.form.addEventListener('input', onFormInput);
 // refs.listGroup.addEventListener('click', handleClick);
