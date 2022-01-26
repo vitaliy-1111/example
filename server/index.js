@@ -21,7 +21,13 @@ const todos = [
     id: "2653454b-8f1f-43e9-a1c7-cefc3c27e60e",
     label: "fdgh",
     checked: true
-  }];
+  },
+   {
+    id: "2653454b-8f1f-43e9-a1c7-cefc3c27e689",
+    label: "ligth",
+    checked: false
+  }
+];
 
 app.get('/todos', (req, res) => {
   res.set({
@@ -29,6 +35,7 @@ app.get('/todos', (req, res) => {
   })
   res.json(todos);
 })
+
 app.post('/todos', (req, res) => {
   const newTodo = {id: v4(), ...req.body };
   todos.push(newTodo);
@@ -38,6 +45,7 @@ app.post('/todos', (req, res) => {
   })
   res.json(newTodo);
 })
+
 app.delete('/todos', (req, res) => {
   const newTodo = {id: v4(), ...req.body };
   todos.push(newTodo);
