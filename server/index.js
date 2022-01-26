@@ -22,23 +22,20 @@ const todos = [
     label: "fdgh",
     checked: true
   }];
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+  
 app.get('/todos', (req, res) => {
-  // res.set({
-  //   "Access-Control-Allow-Origin":"*"
-  // })
+  res.set({
+    "Access-Control-Allow-Origin":"*"
+  })
   res.json(todos);
 })
 app.post('/todos', (req, res) => {
   const newTodo = {id: v4(), ...req.body };
   todos.push(newTodo);
   res.status(200);
-  // res.set({
-  //   "Access-Control-Allow-Origin":"*"
-  // })
+  res.set({
+    "Access-Control-Allow-Origin":"*"
+  })
   res.json(newTodo);
 })
 
