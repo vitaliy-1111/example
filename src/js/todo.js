@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import toastr from "toastr";
 import { deleteModal } from './get-refs.js';
 import { loadingModal } from './get-refs.js';
-import { fetchTodos, saveData } from './data-storage.js';
+import { fetchTodos, createTodo, deleteTodo, updateTodo } from './data-storage.js';
 // import * as basicLightbox from 'basiclightbox';
 
 toastr.options = {
@@ -35,14 +35,17 @@ function handleModalCancel() {
 }
 
 function handleModalDelete() {
-  todos = todos.filter((todo) => todo.id !== currentId);
+  // todos = todos.filter((todo) => todo.id !== currentId);
   // toastr.warning('todo is successfully deleted');
   deleteModal.close();
 
   loadingModal.show();
-  saveData('todos', todos)
+  deleteTodo(currentId)
     .then(() => {
       toastr.warning('todo is successfully deleted');
+    })
+    .then(() => {
+      todos = todos.filter(({id})=>id !== currentId)
     })
     .finally(() => {
       renderList();
@@ -70,15 +73,18 @@ function deleteItem(id) {
 }
 
 function toggleItem(id) {
-  todos = todos.map((todo) => 
-    todo.id === id
-      ? {
-        ...todo,
-        checked: !todo.checked,
-      }
-      : todo);
-   loadingModal.show();
-  saveData('todos', todos).finally(() => {
+ const todo =todos.find((todo) => 
+   todo.id === id);
+  const payload = {
+    checked: !todo.checked,
+  }
+  
+  loadingModal.show();
+  
+  updateTodo(id, payload).then((data) => {
+   todos = todos.map((todo)=>(todo.id === id ? data : todo))
+  })
+    .finally(() => {
     renderList();
     loadingModal.close();
   });
@@ -90,12 +96,12 @@ function handleClick(e) {
   const { id } = e.target.closest('li').dataset;
   switch (e.target.nodeName) {
     case "BUTTON":
-      deleteItem(id);
+      deleteItem(Number(id));
       break;
     case "LABEL":
     case "INPUT":
       // case "SPAN":
-      toggleItem(id);
+      toggleItem(Number(id));
       break;
      
   }
@@ -112,7 +118,7 @@ function addTodo(value) {
     label: value, checked: false 
   }
    toastr.success('todo is successfully created');
-  return saveData('todos', newTodo).then((data) => {
+  return createTodo( newTodo).then((data) => {
     todos.push(data);
   });
 }
@@ -142,7 +148,7 @@ function addEventListeners() {
 function onLoad() {
  
   loadingModal.show();
-  fetchTodos('todos')
+  fetchTodos()
     .then((data) => {
       todos = data;
       renderList();

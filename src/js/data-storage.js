@@ -1,5 +1,13 @@
-export function fetchTodos(key) {
-  return fetch("http://localhost:4040/todos").then(response => response.json());
+import axios from 'axios';
+// axios.defaults.baseURL = 'http://localhost:4040';
+const server1 = axios.create({
+  baseURL :  'http://localhost:4040',
+}
+
+)
+
+export function fetchTodos() {
+  return server1.get("/todos").then(response => response.data);
   // const delay = ~~(Math.random() * 1000);
   // console.log('load delay:', delay);
 
@@ -14,14 +22,19 @@ export function fetchTodos(key) {
   // });
 }
 
-export function saveData(key, payload) {
-  return fetch('http://localhost:4040/todos', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  }).then((response) => response.json());
+export function createTodo(payload) {
+  return server1.post("/todos", payload).then(response => response.data);
+
+
+  // return fetch('http://localhost:4040/todos', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(payload),
+  // }).then((response) => response.json());
+
+
   // const delay = ~~(Math.random() * 1000);
   // console.log('load delay:', delay);
 
@@ -32,4 +45,26 @@ export function saveData(key, payload) {
   //     resolve();
   //   }, delay);
   // });
+}
+export function deleteTodo(id) {
+   return server1.delete(`/todos/${id}`).then(response => response.data);
+  
+  // return fetch(`http://localhost:4040/todos/${id}`, {
+  //   method: 'DELETE',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  // }).then((response) => response.json());
+}
+export function updateTodo(id, payload) {
+  return server1.patch(`/todos/${id}`, payload).then(response => response.data);
+
+
+  //  return fetch(`http://localhost:4040/todos/${id}`, {
+  //   method: 'PATCH',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //    },
+  //   body: JSON.stringify(payload)
+  // }).then((response) => response.json());
 }
