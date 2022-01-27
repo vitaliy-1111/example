@@ -57,7 +57,7 @@ export function deleteTodo(id) {
   // }).then((response) => response.json());
 }
 export function updateTodo(id, payload) {
-  return server1.patch(`/todos/${id}`, payload).then(response => response.data);
+  return server1.put(`/todos/${id}`, payload).then(response => response.data);
 
 
   //  return fetch(`http://localhost:4040/todos/${id}`, {
