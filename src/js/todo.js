@@ -75,7 +75,7 @@ function deleteItem(id) {
 function toggleItem(id) {
  const todo =todos.find((todo) => 
    todo.id === id);
-  const payload = {
+  const payload = { ...todo,
     checked: !todo.checked,
   }
   
@@ -123,14 +123,14 @@ function addTodo(value) {
   });
 }
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
    e.preventDefault();
   const { value } = e.target.elements.text;
   if (!value) return;
 
-  addTodo(value)
-    .then(() => refs.form.reset())
-    .then(renderList);
+  await addTodo(value);
+  refs.form.reset();
+  renderList();
 }
 // refs.form.addEventListener('input', onFormInput);
 // refs.listGroup.addEventListener('click', handleClick);
@@ -145,20 +145,27 @@ function addEventListeners() {
   refs.modalDeleteButton.addEventListener('click', handleModalDelete);
 }
 
-function onLoad() {
+async function onLoad() {
  
   loadingModal.show();
-  fetchTodos()
-    .then((data) => {
-      todos = data;
-      renderList();
-    })
-    .catch((errorMessage) => {
-      toastr.error(errorMessage);
-    })
-    .finally(() => {
+  try {
+     const data = await fetchTodos();
+    todos = data;
+    renderList();
+  } catch (errorMessage) {
+     toastr.error(errorMessage);
+    
+  }
+ 
+    // .then((data) => {
+      
+    // })
+    // .catch((errorMessage) => {
+    //   toastr.error(errorMessage);
+    // })
+    // .finally(() => {
       addEventListeners();
       loadingModal.close();
-    });
+    // });
 }
 onLoad();
