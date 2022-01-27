@@ -45,7 +45,7 @@ function handleModalDelete() {
       toastr.warning('todo is successfully deleted');
     })
     .then(() => {
-      todos = todos.filter(({id})=>id !== currentId)
+      todos = todos.filter(({id})=>id != currentId)
     })
     .finally(() => {
       renderList();
@@ -65,7 +65,7 @@ function deleteItem(id) {
   console.log("delete", id);
   // todos = todos.filter(todo => todo.id !== id);
   //  toastr.warning('Todo is successfuly deleted');
-    const { label } = todos.find((todo) => todo.id === id);
+    const { label } = todos.find((todo) => todo.id == id);
 
   currentId = id;
   refs.modalText.textContent = label;
@@ -82,7 +82,7 @@ function toggleItem(id) {
   loadingModal.show();
   
   updateTodo(id, payload).then((data) => {
-   todos = todos.map((todo)=>(todo.id === id ? data : todo))
+   todos = todos.map((todo)=>(todo.id == id ? data : todo))
   })
     .finally(() => {
     renderList();
@@ -96,12 +96,12 @@ function handleClick(e) {
   const { id } = e.target.closest('li').dataset;
   switch (e.target.nodeName) {
     case "BUTTON":
-      deleteItem(Number(id));
+      deleteItem(id);
       break;
     case "LABEL":
     case "INPUT":
       // case "SPAN":
-      toggleItem(Number(id));
+      toggleItem(id);
       break;
      
   }

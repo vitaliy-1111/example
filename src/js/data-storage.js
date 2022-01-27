@@ -1,7 +1,7 @@
 import axios from 'axios';
 // axios.defaults.baseURL = 'http://localhost:4040';
 const server1 = axios.create({
-  baseURL :  'http://localhost:4040',
+  baseURL :  'https://61f272642219930017f5057f.mockapi.io/api/v1',
 }
 
 )
